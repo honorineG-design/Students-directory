@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1 class="form-title">
+                <i class="fas fa-user-edit"></i>
+                Edit Student
+            </h1>
+            <p class="form-subtitle">Update {{ student['name'] }}'s information</p>
+        </div>
+
+        <form method="POST" class="student-form">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Full Name
+                    </label>
+                    <input type="text" id="name" name="name" value="{{ student['name'] }}" required 
+                           placeholder="Enter student's full name">
+                </div>
+
+                <div class="input-group">
+                    <label for="age">
+                        <i class="fas fa-birthday-cake"></i>
+                        Age
+                    </label>
+                    <input type="number" id="age" name="age" value="{{ student['age'] }}" required min="16" max="60"
+                           placeholder="Enter student's age">
+                </div>
+
+                <div class="input-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <input type="email" id="email" name="email" value="{{ student['email'] }}" required 
+                           placeholder="Enter student's email">
+                </div>
+
+                <div class="input-group">
+                    <label for="course">
+                        <i class="fas fa-book"></i>
+                        Course
+                    </label>
+                    <input type="text" id="course" name="course" value="{{ student['course'] or '' }}" 
+                           placeholder="Enter student's course">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary btn-large">
+                    <i class="fas fa-save"></i>
+                    Update Student
+                </button>
+                <a href="{{ url_for('index') }}" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
