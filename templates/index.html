@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="main-title">
+        <span class="title-gradient">SanTech Students Directory</span>
+    </h1>
+    <p class="subtitle">Manage your student records with efficiency</p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ students|length }}</h3>
+                <p>Total Students</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ students|selectattr('course')|list|length }}</h3>
+                <p>Active Courses</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <div class="section-header">
+        <h2>Student Records</h2>
+        <a href="{{ url_for('add_student') }}" class="btn-primary">
+            <i class="fas fa-plus"></i>
+            Add New Student
+        </a>
+    </div>
+
+    {% if students %}
+    <div class="students-grid">
+        {% for student in students %}
+        <div class="student-card" data-aos="fade-up">
+            <div class="student-header">
+                <div class="student-avatar">
+                    {{ student['name'][0] }}
+                </div>
+                <div class="student-info">
+                    <h3>{{ student['name'] }}</h3>
+                    <p class="student-email">{{ student['email'] }}</p>
+                </div>
+                <div class="student-actions">
+                    <a href="{{ url_for('view_student', id=student['id']) }}" class="action-btn view" title="View">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{ url_for('edit_student', id=student['id']) }}" class="action-btn edit" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{{ url_for('delete_student', id=student['id']) }}" class="action-btn delete" title="Delete" onclick="return confirm('Are you sure?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="student-details">
+                <div class="detail-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>{{ student['age'] }} years old</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-book"></i>
+                    <span>{{ student['course'] or 'No course specified' }}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-id-card"></i>
+                    <span>ID: #{{ student['id'] }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+        <h3>No Students Yet</h3>
+        <p>Get started by adding your first student to the system</p>
+        <a href="{{ url_for('add_student') }}" class="btn-primary">
+            <i class="fas fa-plus"></i>
+            Add Your First Student
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
