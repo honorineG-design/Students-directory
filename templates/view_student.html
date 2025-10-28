@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1 class="form-title">
+                <i class="fas fa-user-circle"></i>
+                Student Details
+            </h1>
+            <p class="form-subtitle">Complete information for {{ student['name'] }}</p>
+        </div>
+
+        <div class="student-profile">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    {{ student['name'][0] }}
+                </div>
+                <div class="profile-info">
+                    <h2>{{ student['name'] }}</h2>
+                    <p class="profile-email">{{ student['email'] }}</p>
+                    <div class="profile-badge">
+                        <i class="fas fa-id-card"></i>
+                        Student ID: #{{ student['id'] }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="detail-content">
+                        <h3>Age</h3>
+                        <p>{{ student['age'] }} years old</p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="detail-content">
+                        <h3>Email</h3>
+                        <p>{{ student['email'] }}</p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="detail-content">
+                        <h3>Course</h3>
+                        <p>{{ student['course'] or 'Not specified' }}</p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="detail-content">
+                        <h3>Student Since</h3>
+                        <p>Recently added</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="{{ url_for('edit_student', id=student['id']) }}" class="btn-primary btn-large">
+                    <i class="fas fa-edit"></i>
+                    Edit Student
+                </a>
+                <a href="{{ url_for('delete_student', id=student['id']) }}" 
+                   class="btn-danger btn-large"
+                   onclick="return confirm('Are you sure you want to delete {{ student.name }}? This action cannot be undone.')">
+                    <i class="fas fa-trash"></i>
+                    Delete Student
+                </a>
+                <a href="{{ url_for('index') }}" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
